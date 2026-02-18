@@ -1,0 +1,11 @@
+.user-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:2px
+}
+.user-info img{
+    width: 50px;
+    border-radius: 50%;
+    border: 2px solid  black;
+}

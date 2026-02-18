@@ -1,0 +1,1 @@
+import "./StarsRating.css"

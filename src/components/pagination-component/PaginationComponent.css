@@ -1,0 +1,52 @@
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid var(--bg-color);
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    min-width: 110px;
+}
+
+.nav-button:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.nav-button:disabled {
+    background-color: var(--disabled-color);
+    color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.nav-button svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+.btn-prev svg {
+    margin-right: 8px;
+}
+
+.btn-next svg {
+    margin-left: 8px;
+}
