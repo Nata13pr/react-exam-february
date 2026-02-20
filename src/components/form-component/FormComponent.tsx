@@ -1,17 +1,17 @@
 import "./FormComponent.css";
 import {useForm} from "react-hook-form";
-import {useState} from "react";
+import {type FC, useState} from "react";
 import {ERROR_MESSAGES} from "../../constants/errors.ts";
 import {useNavigate, useSearchParams} from "react-router";
 import type {IForm} from "../../models/IForm.ts";
 import {useAppDispatch} from "../../redux/hooks/useAppDispatch.tsx";
 import {movieSliceActions} from "../../redux/slices/movieSlice/movieSlice.ts";
 
-type FormPropsType= {
+type FormPropsType = {
     onClose: () => void;
 }
 
-const FormComponent = ({onClose}) => {
+const FormComponent: FC<FormPropsType> = ({onClose}) => {
     const dispatch = useAppDispatch();
     const [serverError, setServerError] = useState<string | null>(null);
     const {handleSubmit, register, reset, formState: {errors, isValid}} = useForm<IForm>({
@@ -22,12 +22,14 @@ const FormComponent = ({onClose}) => {
 
     const customHandler = async (formDataProps: IForm) => {
         setServerError(null);
+        if (!formDataProps.movieName) return;
         try {
             dispatch(movieSliceActions.loadMoviesBySearch(formDataProps))
 
             dispatch(movieSliceActions.setSearchQuery(formDataProps.movieName));
             reset()
             navigate(`/search`);
+            onClose()
         } catch (error: any) {
             console.error('Login error:', error);
             let message = ERROR_MESSAGES.UNKNOWN;
@@ -46,14 +48,35 @@ const FormComponent = ({onClose}) => {
     }
     return (
 
-        <form onSubmit={handleSubmit(customHandler)}>
-            <div className="input-field">
-                <label>
-                    <input type="text" {...register("movieName")}/>
-                    {errors.movieName && <div className="field-error-message">{errors.movieName.message}</div>}
-                </label>
-            </div>
-            <button className="submit-button" disabled={!isValid}>Search</button>
+        // <form onSubmit={handleSubmit(customHandler)}>
+        //     <div className="input-field">
+        //         <label>
+        //             <input
+        //                 type="text"
+        //                 placeholder="Search movies..."
+        //                 autoFocus
+        //                 {...register("movieName", {
+        //                     onBlur: (e) => {
+        //                         if (e.target.value === "") onClose(); // Тепер це працює правильно
+        //                     }
+        //                 })}/>
+        //             {errors.movieName && <div className="field-error-message">{errors.movieName.message}</div>}
+        //         </label>
+        //     </div>
+        //     <button className="submit-button" disabled={!isValid}>Search</button>
+        // </form>
+        // FormComponent.tsx
+// ... логіка залишається твоєю ...
+        <form onSubmit={handleSubmit(customHandler)} className="search-form">
+            <input
+                type="text"
+                className="search-input"
+                placeholder="Search movies..."
+                autoFocus
+                {...register("movieName", {
+                    onBlur: (e) => { if (e.target.value === "") onClose(); }
+                })}/>
+            {/* Кнопку Search приховуємо для стилю Flix.id */}
         </form>
 
     )

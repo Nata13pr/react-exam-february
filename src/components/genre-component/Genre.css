@@ -1,0 +1,26 @@
+.genre-pill.active {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+
+.genre-item {
+    /* Додай цей клас до тегу <li> навколо кнопки */
+    scroll-snap-align: start; /* Кнопка прилипає до початку */
+    flex-shrink: 0;
+}
+
+.genre-pill {
+    width: 234px; /* Наша розрахована ширина */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.08); /* Скляний ефект */
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    white-space: nowrap; /* Щоб текст не ламався */
+    cursor: pointer;
+}

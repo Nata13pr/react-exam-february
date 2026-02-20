@@ -1,0 +1,25 @@
+/*.layout-background {*/
+/*   background-color: lightgray;*/
+/*}*/
+
+.layout-background {
+    width: 100%;
+    background-color: #8e9ba5;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.content-island {
+    width: 96%;
+    max-width: 1440px;
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.main-content {
+    padding: 20px 40px;
+}

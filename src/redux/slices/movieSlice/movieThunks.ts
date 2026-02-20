@@ -50,7 +50,7 @@ export const loadMovieById = createAsyncThunk(
 
         try {
             const movieById = await loadById(id)
-
+            console.log(movieById,'in thunk')
             return thunkAPI.fulfillWithValue(movieById);
         } catch (e) {
             console.log(e);

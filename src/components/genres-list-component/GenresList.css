@@ -1,0 +1,57 @@
+.genres-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.genres-viewport {
+    max-width: 1252px; /* Твій острів */
+    margin: 0 auto;
+    overflow: hidden; /* Обрізаємо куски, що не влізли */
+}
+
+.genres-list-container {
+    display: flex;
+    gap: 20px; /* Твій фіксований відступ */
+    list-style: none; /* ГЕТЬ КРАПКИ зі скріншоту */
+    padding: 10px 0;
+    margin: 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+
+    /* ЦЕ ПРИБЕРЕ КУСКИ: */
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.genres-list-container::-webkit-scrollbar {
+    display: none;
+}
+.carousel-controls {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.nav-arrow {
+    background: rgba(255, 255, 255, 0.1); /* Скляний стиль */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.nav-arrow:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+}

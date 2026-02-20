@@ -9,13 +9,7 @@ type MovieListProps = {
 const MovieList: FC<MovieListProps> = ({movies}) => {
 
     return (
-        <ul style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            gap: '20px',
-            flexWrap: 'wrap'
-        }}>
+        <ul className='movie-list'>
             {
                 movies.map(movie => <MovieListCard key={movie.id} movie={movie}/>)
             }

@@ -11,14 +11,23 @@ const PaginationPage: FC<PaginationPropsType> = ({totalPages}) => {
     let currentPage = Number(searchParams.get("page") || '1');
     const page = Number(searchParams.get('page'))
 
+    const changePage = (newPage: number) => {
+        setSearchParams(prev => {
+            // Копіюємо всі попередні параметри (включаючи with_genres)
+            const params = new URLSearchParams(prev);
+            params.set("page", newPage.toString());
+            return params;
+        });
+    };
+
     const handleOnClickNext = () => {
         if (totalPages > currentPage) {
-            setSearchParams({page: (++currentPage).toString()});
+            changePage(currentPage + 1);;
         }
     }
     const handleOnClickPrev = () => {
         if (currentPage > 1) {
-            setSearchParams({page: (--currentPage).toString()})
+            changePage(currentPage - 1);
         }
     }
     return (

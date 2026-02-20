@@ -1,11 +1,18 @@
-.user-info{
+.user-profile {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap:2px
+    gap: 10px;
 }
-.user-info img{
-    width: 50px;
+
+.avatar-img {
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
-    border: 2px solid  black;
+    object-fit: cover;
+    border: 1px solid black;
+}
+
+.user-name {
+    color: black;
+    font-size: 0.9rem;
 }
