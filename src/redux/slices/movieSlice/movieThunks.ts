@@ -6,10 +6,10 @@ import {loadGenres} from "../../../services/genre.service.ts";
 
 export const loadMovies = createAsyncThunk(
     'movieSlice/loadMovies',
-    async ({page,id}:{page:string,id?:string}, thunkAPI) => {
+    async ({page, id}: { page: string, id?: string }, thunkAPI) => {
 
         try {
-            const moviesResponse = await loadMoviesByPage(page,id)
+            const moviesResponse = await loadMoviesByPage(page, id)
 
             return thunkAPI.fulfillWithValue(moviesResponse);
         } catch (e) {
@@ -25,7 +25,7 @@ export const loadMoviesBySearch = createAsyncThunk(
 
         try {
             let movieName: string;
-            let page: string= '1'
+            let page: string = '1'
 
             if (typeof arg === 'object' && 'movieName' in arg) {
                 movieName = arg.movieName;
@@ -46,11 +46,11 @@ export const loadMoviesBySearch = createAsyncThunk(
 
 export const loadMovieById = createAsyncThunk(
     'movieSlice/loadMovieById',
-    async (id:string, thunkAPI) => {
+    async (id: string, thunkAPI) => {
 
         try {
             const movieById = await loadById(id)
-            console.log(movieById,'in thunk')
+            console.log(movieById, 'in thunk')
             return thunkAPI.fulfillWithValue(movieById);
         } catch (e) {
             console.log(e);
@@ -73,19 +73,3 @@ export const loadAllGenres = createAsyncThunk(
         }
     }
 )
-
-// export const loadAllMoviesByGenreId = createAsyncThunk(
-//     'movieSlice/loadAllMoviesByGenreId',
-//     async ( { id: string, page: string }, thunkAPI) => {
-//
-//         try {
-//
-//             const movies = await loadMoviesByGenderId(id, page);
-//
-//             return thunkAPI.fulfillWithValue(movies);
-//         } catch (e) {
-//             console.log(e);
-//             return thunkAPI.rejectWithValue('some error')
-//         }
-//     }
-// )

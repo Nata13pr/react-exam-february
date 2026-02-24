@@ -5,22 +5,21 @@
 
 
 .genre-item {
-    /* Додай цей клас до тегу <li> навколо кнопки */
-    scroll-snap-align: start; /* Кнопка прилипає до початку */
+    scroll-snap-align: start;
     flex-shrink: 0;
 }
 
 .genre-pill {
-    width: 234px; /* Наша розрахована ширина */
+    width: 234px;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.08); /* Скляний ефект */
+    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(12px);
     border-radius: 12px;
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    white-space: nowrap; /* Щоб текст не ламався */
+    white-space: nowrap;
     cursor: pointer;
 }

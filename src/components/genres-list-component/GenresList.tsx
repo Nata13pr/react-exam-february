@@ -1,20 +1,3 @@
-// import "./GenresList.css"
-// import Genre from "../genre-component/Genre.tsx";
-// import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
-//
-// const GenresList = () => {
-//     const {genres} = useAppSelector(({movieSlice}) => movieSlice)
-//     console.log(genres.length)
-//     return (
-//         <ul className="genres-list-container">
-//             {
-//                 genres.map(genre => <Genre key={genre.id} genre={genre}/>)
-//             }
-//         </ul>
-//     )
-// }
-//
-// export default GenresList
 import {useRef} from "react";
 import "./GenresList.css";
 import Genre from "../genre-component/Genre.tsx";

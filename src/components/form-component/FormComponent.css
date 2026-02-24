@@ -1,115 +1,7 @@
-/*.error {*/
-/*    padding: 12px;*/
-/*    margin-bottom: 20px;*/
-/*    background-color: #fff1f0;*/
-/*    border: 1px solid #ffa39e;*/
-/*    border-radius: 8px;*/
-/*    color: #cf1322;*/
-/*    font-size: 14px;*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    gap: 8px*/
-/*}*/
-/*.form-wrapper {*/
-/*    margin-top: 150px;*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;*/
-/*}*/
-
-/*.form-container {*/
-/*    background: white;*/
-/*    padding: 3rem;*/
-/*    border-radius: 12px;*/
-/*    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);*/
-/*    width: 100%;*/
-/*    max-width: 360px;*/
-/*}*/
-
-/*.form-title {*/
-/*    margin-bottom: 1.5rem;*/
-/*    font-size: 1.5rem;*/
-/*    font-weight: 700;*/
-/*    color: #111827;*/
-/*    text-align: center;*/
-/*}*/
-
-/*.error-banner {*/
-/*    background-color: #fef2f2;*/
-/*    border: 1px solid #fee2e2;*/
-/*    color: #b91c1c;*/
-/*    padding: 0.75rem;*/
-/*    border-radius: 6px;*/
-/*    margin-bottom: 1rem;*/
-/*    font-size: 0.875rem;*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    gap: 8px;*/
-/*}*/
-
-/*.input-field {*/
-/*    margin-bottom: 1.25rem;*/
-/*}*/
-
-/*.input-field label {*/
-/*    display: block;*/
-/*    margin-bottom: 0.4rem;*/
-/*    font-size: 0.875rem;*/
-/*    font-weight: 500;*/
-/*    color: #374151;*/
-/*}*/
-
-/*.input-field input {*/
-/*    width: 100%;*/
-/*    padding: 0.625rem 0.875rem;*/
-/*    border: 1px solid #d1d5db;*/
-/*    border-radius: 6px;*/
-/*    font-size: 1rem;*/
-/*    transition: border-color 0.2s, box-shadow 0.2s;*/
-/*    box-sizing: border-box;*/
-/*}*/
-
-/*.input-field input:focus {*/
-/*    outline: none;*/
-/*    border-color: #2563eb;*/
-/*    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);*/
-/*}*/
-
-/*.input-field input.has-error {*/
-/*    border-color: #ef4444;*/
-/*}*/
-
-/*.field-error-message {*/
-/*    color: #ef4444;*/
-/*    font-size: 0.75rem;*/
-/*    margin-top: 0.25rem;*/
-/*    min-height: 1rem;*/
-/*}*/
-
-/*.submit-button {*/
-/*    width: 100%;*/
-/*    background-color: #2563eb;*/
-/*    color: white;*/
-/*    padding: 0.75rem;*/
-/*    border-radius: 6px;*/
-/*    font-weight: 600;*/
-/*    border: none;*/
-/*    cursor: pointer;*/
-/*    transition: background-color 0.2s;*/
-/*}*/
-
-/*.submit-button:hover:not(:disabled) {*/
-/*    background-color: #1d4ed8;*/
-/*}*/
-
-/*.submit-button:disabled {*/
-/*    background-color: #93c5fd;*/
-/*    cursor: not-allowed;*/
-/*}*/
-/* FormComponent.css */
 .search-form {
-    flex: 1;
+    display: flex;
+    align-items: center;
+    width: 100%;
 }
 
 .search-input {
@@ -120,8 +12,73 @@
     color: white;
     padding: 5px;
     font-size: 0.9rem;
+    transition: color 0.3s ease;
 }
 
-.submit-button {
-    display: none; /* Пошук працює через Enter */
+.search-input.input-error {
+    color: #fbbf24;
+    text-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+}
+
+.search-input.input-error::placeholder {
+    color: rgba(255, 107, 107, 0.7);
+    font-size: 0.8rem;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(20, 20, 20, 0.95) transparent transparent transparent;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.search-tooltip-bottom {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fbbf24;
+    border-radius: 6px;
+    white-space: nowrap;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    pointer-events: none;
+    animation: fadeInSlideUp 0.2s ease-out;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    padding: 8px 16px;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+    background: rgba(10, 12, 16, 0.98);
+    border: 1px solid rgba(251, 191, 36, 0.5);
+}
+
+.search-tooltip-bottom::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent rgba(251, 191, 36, 0.4) transparent;
+}
+
+@keyframes fadeInSlideUp {
+    from { opacity: 0; transform: translate(-50%, -5px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
 }

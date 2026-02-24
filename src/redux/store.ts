@@ -5,7 +5,5 @@ import {movieSlice} from "./slices/movieSlice/movieSlice.ts";
 export const store = configureStore({
     reducer: {
         movieSlice: movieSlice.reducer,
-        // postSlice: postSlice.reducer,
-        // commentSlice: commentSlice.reducer,
     }
 })

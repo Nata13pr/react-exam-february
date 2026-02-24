@@ -1,25 +1,25 @@
 .star-rating-wrapper {
     display: flex;
     align-items: center;
-    gap: 1px; /* Мінімальний відступ для 10 зірок */
+    gap: 1px;
 }
 
 .star-container {
     position: relative;
     display: inline-block;
-    font-size: 18px; /* Менший розмір, щоб 10 зірок влізли в рядок */
+    font-size: 18px;
     line-height: 1;
 }
 
 .star-background {
-    color: rgba(255, 255, 255, 0.3); /* Темно-сірий фон для контрасту на твоєму макеті */
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .star-foreground {
-    color: #ffd700; /* Золотий колір */
+    color: #ffd700;
     position: absolute;
     top: 0;
     left: 0;
-    overflow: hidden; /* ЦЕ КРИТИЧНО для часткового зафарбовування */
+    overflow: hidden;
     white-space: nowrap;
 }

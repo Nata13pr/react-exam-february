@@ -2,7 +2,7 @@ import './StarsRating.css';
 import type {FC} from "react";
 
 type RatingProps = {
-    rating: number; // Отримуємо vote_average (0-10)
+    rating: number;
 };
 
 const StarsRating: FC<RatingProps> = ({rating}) => {

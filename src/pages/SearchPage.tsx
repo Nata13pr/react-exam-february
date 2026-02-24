@@ -4,33 +4,37 @@ import {useSearchParams} from "react-router";
 import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
 import {useEffect} from "react";
 import {movieSliceActions} from "../redux/slices/movieSlice/movieSlice.ts";
+import MovieList from "../components/movie-list-component/MovieList.tsx";
 
 const SearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useAppDispatch();
-    const { moviesSearch, moviesSearchTotalPages,searchQuery } = useAppSelector(({ movieSlice }) => movieSlice);
+    const {movies, totalPages, searchQuery} = useAppSelector(({movieSlice}) => movieSlice);
 
     useEffect(() => {
         const query = searchParams.get("query");
         const page = searchParams.get("page") || '1';
-   if(!query){
-       setSearchParams({
-           query: searchQuery,
-           page
-       });
-   }
+        if (!query) {
+            setSearchParams({
+                query: searchQuery,
+                page
+            });
+        }
         if (query) {
-            dispatch(movieSliceActions.loadMoviesBySearch({ query, page }));
+            dispatch(movieSliceActions.loadMoviesBySearch({query, page}));
         }
     }, [searchParams]);
 
     return (
-        <>
-            {moviesSearchTotalPages > 1 && <PaginationPage totalPages={moviesSearchTotalPages}/>}
-            {
-                moviesSearch.map(movie => <div key={movie.id}>{movie.name}</div>)
-            }
-        </>
+        <div>
+            <MovieList movies={movies}/>
+            {totalPages > 1 && <PaginationPage totalPages={totalPages}/>}
+            {movies && movies.length === 0 && (
+                <div className="no-movies-found">
+                    🔍︎ Movies not found. Try another search.
+                </div>
+            )}
+        </div>
     )
 }
 export default SearchPage;

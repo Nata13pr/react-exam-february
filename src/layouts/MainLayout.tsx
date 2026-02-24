@@ -6,7 +6,7 @@ import GenresList from "../components/genres-list-component/GenresList.tsx";
 export const MainLayout = () => {
     return (
         <div className='layout-background'>
-            <div className='content-island'> {/* Той самий закруглений "острів" */}
+            <div className='content-island'>
                 <Header/>
                 <GenresList/>
                 <main className="main-content">

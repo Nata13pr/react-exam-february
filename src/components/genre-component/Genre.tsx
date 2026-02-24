@@ -2,14 +2,14 @@ import "./Genre.css"
 
 import type {IGenre} from "../../models/IGenre.ts";
 import {type FC} from "react";
-import {useSearchParams} from "react-router";
+import {useNavigate, useSearchParams} from "react-router";
 
 type GenrePropsType={
     genre:IGenre
 }
 const Genre:FC<GenrePropsType>=({genre})=>{
     const [searchParams, setSearchParams] = useSearchParams();
-
+    const navigate = useNavigate();
 
     const currentGenreId = searchParams.get("with_genres");
 
@@ -21,6 +21,11 @@ const Genre:FC<GenrePropsType>=({genre})=>{
         newParams.set("page", "1");
 
         setSearchParams(newParams);
+        if (window.location.pathname.includes("info")) {
+            navigate(`/movies?${newParams.toString()}`);
+        } else {
+            setSearchParams(newParams);
+        }
     };
 
     return (

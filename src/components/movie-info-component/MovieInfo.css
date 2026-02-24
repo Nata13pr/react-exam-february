@@ -1,15 +1,17 @@
+
 .movie-details-container {
     position: relative;
     min-height: 100vh;
+    width: 100%;
+    /*width: 1252px;*/
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Щоб контент починався зверху, якщо він великий */
-    padding: 10px 20px;
+    align-items: flex-start;
+    padding:0  0 20px 0;
     box-sizing: border-box;
     color: #fff;
 }
 
-/* ФОН: зафіксований, щоб не впливати на потік елементів */
 .movie-backdrop {
     position: fixed;
     top: 0;
@@ -32,13 +34,10 @@
     z-index: -1;
 }
 
-/* КОНТЕНТНА КАРТКА */
 .movie-content {
     display: flex;
-    max-width: 1100px;
     width: 100%;
     gap: 40px;
-    /* Зробили фон світлішим (alpha 0.9) */
     background: rgba(65, 75, 90, 0.9);
 
     backdrop-filter: blur(15px);
@@ -48,7 +47,7 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     z-index: 1;
 }
-/* ЛІВА КОЛОНКА */
+
 .movie-poster-section {
     flex: 0 0 320px;
     display: flex;
@@ -78,7 +77,6 @@
     background: #ffd166;
 }
 
-/* ПРАВА КОЛОНКА */
 .movie-text-details {
     flex: 1;
 }
@@ -116,7 +114,6 @@
     color: #fca311;
 }
 
-/* СІТКА СТАТИСТИКИ */
 .movie-info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -130,7 +127,7 @@
 .cell-label {
     display: block;
     font-size: 0.75rem;
-    color: #666;
+    color: #999999;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -140,7 +137,6 @@
     font-weight: 500;
 }
 
-/* ЛОГОТИПИ */
 .company-logos-row {
     display: flex;
     flex-wrap: wrap;
@@ -156,15 +152,13 @@
     object-fit: contain;
 }
 
-/* ЖАНРИ */
+
 .genres-list {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
 }
-/* ... попередні стилі (container, backdrop, content) залишаються ... */
 
-/* Заголовок та слоган */
 .movie-header {
     margin-bottom: 10px;
 }
@@ -177,14 +171,13 @@
 }
 
 .movie-tagline {
-    color: #ffd166; /* Зробив колір слогану акцентним */
+    color: #ffd166;
     font-style: italic;
     font-size: 1.2rem;
     margin-top: 8px;
     opacity: 0.9;
 }
 
-/* Мета-дані (рік, вік, статус) */
 .movie-meta-row {
     display: flex;
     align-items: center;
@@ -200,7 +193,7 @@
     color: #ccc;
 }
 
-/* Додав стилі для ADULT, які ти просив */
+
 .meta-item.adult {
     border: 1px solid rgba(255, 255, 255, 0.5);
     padding: 2px 8px;
@@ -218,7 +211,6 @@
     letter-spacing: 0.5px;
 }
 
-/* Секція огляду (Overview) */
 .overview-block {
     margin-top: 25px;
 }
@@ -239,7 +231,7 @@
     margin: 0;
 }
 
-/* Секція компаній виробників */
+
 .production-section {
     margin-top: 30px;
 }
@@ -263,7 +255,6 @@
     height: 35px;
     max-width: 150px;
     object-fit: contain;
-    /* Фільтр робить логотипи білими, щоб їх було видно на темному фоні */
     filter: brightness(0) invert(1);
     opacity: 0.7;
     transition: opacity 0.3s;
@@ -279,7 +270,6 @@
     font-style: italic;
 }
 
-/* Лоадер, якщо фільм ще вантажиться */
 .loading-spinner {
     display: flex;
     justify-content: center;

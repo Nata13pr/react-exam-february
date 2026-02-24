@@ -4,6 +4,7 @@ import {MainLayout} from "../layouts/MainLayout.tsx";
 import MoviesPage from "../pages/MoviesPage.tsx";
 import SearchPage from "../pages/SearchPage.tsx";
 import InfoPage from "../pages/InfoPage.tsx";
+import ErrorPage from "../pages/ErrorPage.tsx";
 
 const routes: RouteObject[] = [
     {
@@ -13,9 +14,16 @@ const routes: RouteObject[] = [
                 element: <Navigate to="/movies" replace/>
             },
             {
-                index: true,
                 path: 'movies',
                 element: <MoviesPage/>
+            },
+            {
+                path: 'series',
+                element: <div>Hello</div>
+            },
+            {
+                path: 'error',
+                element: <ErrorPage/>
             },
             {
                 path: 'search',
@@ -25,17 +33,6 @@ const routes: RouteObject[] = [
                 path: 'movie/info/:movieId',
                 element: <InfoPage/>
             },
-            // {
-            //     path: 'users', element: <UsersPage/>, children: [
-            //         {path: ':id', element: <UserPage/>},
-            //     ]
-            // },
-            // {
-            //     path: 'posts', element: <PostsPage/>
-            // },
-            // {
-            //     path: 'comments', element: <CommentsPage/>
-            // },
         ]
     }
 

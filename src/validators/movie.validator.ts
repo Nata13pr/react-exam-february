@@ -2,16 +2,15 @@ import * as Joi from "joi";
 
 const MovieValidator = Joi.object({
     movieName: Joi.string()
+        .trim()
         .min(1)
-        .max(20)
-        .pattern(/^[a-zA-Zа-яА-яёЁіІїЇєЄҐґ\s]{1,20}$/)
+        .max(30)
+        .pattern(/^(?!^[.,\-!?])[a-zA-Zа-яА-ЯёЁіІїЇєЄҐґ0-9\s!?:,\-]+$/)
         .required()
         .messages({
-            "string.pattern.base": "Only Latin and Cyrillic letters are allowed &  must be at least 1 character.",
-            "string.base": "MovieName must be a string.",
-            "string.empty": "MovieName field cannot be empty.",
-            "string.min": "MovieName must be at least 1 character long.",
-            "string.max": "MovieName cannot exceed 20 characters.",
+            "string.pattern.base": "Invalid start or characters",
+            "string.max": "Maximum 30 symbols allowed",
+            "string.empty": "Search field is empty"
         }),
 })
 

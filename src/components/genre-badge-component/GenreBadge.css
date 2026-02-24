@@ -1,9 +1,9 @@
 .genre-badge {
-    color: #ffffff; /* Білий текст для контрасту з яскравими кольорами */
+    color: #ffffff;
     padding: 4px 10px;
-    border-radius: 6px; /* Трохи заокруглені кути, як на скріншоті */
+    border-radius: 6px;
     font-size: 14px;
-    font-weight: 700; /* Жирний текст, як у прикладі */
+    font-weight: 700;
     text-transform: capitalize;
     border: none;
     line-height: 1;

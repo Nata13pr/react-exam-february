@@ -4,14 +4,15 @@ import type {FC} from "react";
 import type {IGenre} from "../../models/IGenre.ts";
 
 type GenreBadgePropsType = {
-    g: IGenre,
+    g: IGenre | string,
 }
 
 const GenreBadge: FC<GenreBadgePropsType> = ({g}) => {
+
     return (
         <span className="genre-badge"
               style={{backgroundColor: getRandomColor()}}>
-            {g.name}
+       {typeof g === 'string' ? g : g.name}
         </span>
     )
 }

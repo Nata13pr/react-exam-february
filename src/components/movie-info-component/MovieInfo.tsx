@@ -1,6 +1,6 @@
 import "./MovieInfo.css";
-import type { FC } from "react";
-import type { IMovieDetails } from "../../models/movie/MovieDetails.ts";
+import {type FC} from "react";
+import type {IMovieDetails} from "../../models/movie/MovieDetails.ts";
 import Rating from "../stars-rating-component/StarsRating.tsx";
 import GenreBadge from "../genre-badge-component/GenreBadge.tsx";
 
@@ -8,29 +8,36 @@ type MoviePropsType = {
     movie: IMovieDetails | null;
 };
 
-const MovieInfo: FC<MoviePropsType> = ({ movie }) => {
+const MovieInfo: FC<MoviePropsType> = ({movie}) => {
     const baseUrl = "https://image.tmdb.org/t/p/original";
     const logoBaseUrl = "https://image.tmdb.org/t/p/w200";
-
+    console.log(movie)
     if (!movie) {
         return <div className="loading-spinner">Loading movie details...</div>;
     }
 
+    const backdropSrc = movie.backdrop_path
+        ? `${baseUrl}${movie.backdrop_path}`
+        : "https://placehold.jp/333333/333333/1920x1080.png"
+
+    const posterSrc = movie.poster_path
+        ? `${baseUrl}${movie.poster_path}`
+        : "https://placehold.jp/44/999999/ffffff/500x750.png?text=No+Poster";
+
     return (
         <div className="movie-details-container">
-            {/* Фонове зображення зафіксоване на задньому плані */}
+
             <div
                 className="movie-backdrop"
-                style={{ backgroundImage: `url(${baseUrl}${movie.backdrop_path})` }}
+                style={{backgroundImage: `url(${backdropSrc})`}}
             >
                 <div className="backdrop-overlay"></div>
             </div>
 
             <div className="movie-content">
-                {/* Ліва частина: Постер з фіксованою шириною */}
                 <div className="movie-poster-section">
                     <img
-                        src={`${baseUrl}${movie.poster_path}`}
+                        src={`${posterSrc}`}
                         alt={movie.title}
                         className="movie-info-poster"
                     />
@@ -41,7 +48,6 @@ const MovieInfo: FC<MoviePropsType> = ({ movie }) => {
                     )}
                 </div>
 
-                {/* Права частина: Текстова інформація */}
                 <div className="movie-text-details">
                     <div className="movie-header">
                         <h1 className="movie-title">{movie.title}</h1>
@@ -53,7 +59,7 @@ const MovieInfo: FC<MoviePropsType> = ({ movie }) => {
                         <span className="meta-item adult">{movie.adult ? "18+" : "12+"}</span>
                         <span className="meta-item status">{movie.status}</span>
                         <div className="rating-flex">
-                            <Rating rating={movie.vote_average/2} />
+                            <Rating rating={movie.vote_average / 2}/>
                             <span className="rating-num">{movie.vote_average.toFixed(1)}</span>
                             <span className="vote-count">({movie.vote_count} votes)</span>
                         </div>
@@ -61,7 +67,7 @@ const MovieInfo: FC<MoviePropsType> = ({ movie }) => {
 
                     <div className="genres-list">
                         {movie.genres.map(g => (
-                            <GenreBadge g={g} key={g.id}  />
+                            <GenreBadge g={g} key={g.id}/>
                         ))}
                     </div>
 
@@ -70,7 +76,6 @@ const MovieInfo: FC<MoviePropsType> = ({ movie }) => {
                         <p>{movie.overview}</p>
                     </div>
 
-                    {/* Детальна статистика у вигляді сітки */}
                     <div className="movie-info-grid">
                         <div className="grid-cell">
                             <span className="cell-label">Duration</span>
@@ -94,7 +99,6 @@ const MovieInfo: FC<MoviePropsType> = ({ movie }) => {
                         </div>
                     </div>
 
-                    {/* Виробничі компанії */}
                     <div className="production-section">
                         <h4>Production Companies</h4>
                         <div className="company-logos-row">

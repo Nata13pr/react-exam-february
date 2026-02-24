@@ -1,6 +1,8 @@
-.movie-list{
+.movie-list {
     display: grid;
-    height: 425px;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Адаптивна сітка */
+    gap: 25px;
+    padding: 20px 0;
+    list-style: none; /* Прибираємо крапки */
+    margin: 0;
 }

@@ -2,7 +2,6 @@ import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import type {MovieSliceType} from "./movieTypes.ts";
 import {loadAllGenres, loadMovieById, loadMovies, loadMoviesBySearch} from "./movieThunks.ts";
 import type {IMovieResponse} from "../../../models/movie/IMovieResponse.ts";
-import type {IMovieSearchResponse} from "../../../models/movie/IMovieSearchResponse.ts";
 import type {IMovieDetails} from "../../../models/movie/MovieDetails.ts";
 import type {IGenre} from "../../../models/IGenre.ts";
 
@@ -10,8 +9,6 @@ const initialState: MovieSliceType = {
     movies: [],
     totalPages: 1,
     page: 1,
-    moviesSearch: [],
-    moviesSearchTotalPages: 1,
     searchQuery: '',
     movie: null,
     genres: []
@@ -39,9 +36,9 @@ export const movieSlice = createSlice({
                 console.log(state);
                 console.log(action)
             })
-            .addCase(loadMoviesBySearch.fulfilled, (state, action: PayloadAction<IMovieSearchResponse>) => {
-                state.moviesSearch = action.payload.results
-                state.moviesSearchTotalPages = action.payload.total_pages
+            .addCase(loadMoviesBySearch.fulfilled, (state, action: PayloadAction<IMovieResponse>) => {
+                state.movies = action.payload.results
+                state.totalPages = action.payload.total_pages
             })
             .addCase(loadMoviesBySearch.rejected, (state, action) => {
                 console.log(state);
