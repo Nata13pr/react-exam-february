@@ -1,0 +1,32 @@
+.no-movies-found-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 40vh;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.search-empty-icon {
+    font-size: 120px;
+    color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+    line-height: 1;
+}
+
+.no-movies-found-wrapper h1 {
+    color: #ffffff;
+    font-size: 2.2rem;
+    font-weight: 500;
+    margin: 0 0 15px 0;
+}
+
+.no-movies-found-wrapper p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.2rem;
+    max-width: 500px;
+    margin: 0;
+}

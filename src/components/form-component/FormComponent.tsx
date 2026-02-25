@@ -14,9 +14,10 @@ type FormPropsType = {
 }
 
 const FormComponent: FC<FormPropsType> = ({onClose, onSearchError}) => {
-    const {handleSubmit, register, reset, watch, formState: {errors}} = useForm<IForm>({
+    const {handleSubmit, register, reset, watch,clearErrors, formState: {errors,isSubmitted}} = useForm<IForm>({
         mode: 'onChange',
-        resolver: joiResolver(MovieValidator)
+        resolver: joiResolver(MovieValidator),
+        shouldFocusError: true,
     });
 
     const movieNameValue = watch("movieName");
@@ -25,21 +26,38 @@ const FormComponent: FC<FormPropsType> = ({onClose, onSearchError}) => {
 
     useEffect(() => {
         const errorType = errors.movieName?.type;
+
+        if (!movieNameValue && !isSubmitted) {
+            clearErrors("movieName");
+            return;
+        }
+
+        if (movieNameValue && errorType === 'string.empty') {
+            clearErrors("movieName");
+        }
+
         if (errorType === 'string.pattern.base') {
             onSearchError();
         }
-    }, [movieNameValue, errors.movieName, onSearchError]);
+    }, [movieNameValue, errors.movieName, onSearchError, clearErrors, isSubmitted]);
 
     const customHandler = async (formDataProps: IForm) => {
-        if (!formDataProps.movieName) return;
         try {
-            dispatch(movieSliceActions.loadMoviesBySearch(formDataProps));
-            dispatch(movieSliceActions.setSearchQuery(formDataProps.movieName));
-            reset();
-            navigate(`/search`);
-            onClose();
+            const resultAction = await dispatch(movieSliceActions.loadMoviesBySearch(formDataProps));
+
+            if (movieSliceActions.loadMoviesBySearch.fulfilled.match(resultAction)) {
+                dispatch(movieSliceActions.setSearchQuery(formDataProps.movieName));
+                reset();
+                navigate(`/search`);
+                onClose();
+            } else {
+                navigate("/error", {
+                    state: { message: "Server is currently unavailable. Please try again later." }
+                });
+                onClose();
+            }
         } catch (error: any) {
-            navigate("/error", {state: {message: "Search failed"}});
+            navigate("/error", { state: { message: "Network connection error" } });
             onClose();
         }
     };
@@ -48,6 +66,8 @@ const FormComponent: FC<FormPropsType> = ({onClose, onSearchError}) => {
             <form onSubmit={handleSubmit(customHandler)} className="search-form">
                 <input
                     type="text"
+                    autoComplete="off"
+                    autoFocus
                     className={`search-input ${errors.movieName ? "input-error" : ""}`}
                     {...register("movieName")}
                 />

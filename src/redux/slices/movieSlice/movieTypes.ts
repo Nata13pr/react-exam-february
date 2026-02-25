@@ -9,4 +9,5 @@ export type MovieSliceType = {
     searchQuery: string;
     movie:  IMovieDetails | null;
     genres: IGenre[];
+    isLoading: boolean;
 }

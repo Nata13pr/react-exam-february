@@ -1,11 +1,11 @@
-import './StarsRating.css';
+import './StarsRatingComponent.css';
 import type {FC} from "react";
 
 type RatingProps = {
     rating: number;
 };
 
-const StarsRating: FC<RatingProps> = ({rating}) => {
+const StarsRatingComponent: FC<RatingProps> = ({rating}) => {
     return (
         <div className="star-rating-wrapper">
             {[...Array(5)].map((_, i) => {
@@ -26,4 +26,4 @@ const StarsRating: FC<RatingProps> = ({rating}) => {
     );
 };
 
-export default StarsRating;
+export default StarsRatingComponent;

@@ -1,8 +1,8 @@
-import "./MovieInfo.css";
+import "./MovieInfoComponent.css";
 import {type FC} from "react";
 import type {IMovieDetails} from "../../models/movie/MovieDetails.ts";
-import Rating from "../stars-rating-component/StarsRating.tsx";
-import GenreBadge from "../genre-badge-component/GenreBadge.tsx";
+import Rating from "../stars-rating-component/StarsRatingComponent.tsx";
+import GenreBadgeComponent from "../genre-badge-component/GenreBadgeComponent.tsx";
 
 type MoviePropsType = {
     movie: IMovieDetails | null;
@@ -67,7 +67,7 @@ const MovieInfo: FC<MoviePropsType> = ({movie}) => {
 
                     <div className="genres-list">
                         {movie.genres.map(g => (
-                            <GenreBadge g={g} key={g.id}/>
+                            <GenreBadgeComponent g={g} key={g.id}/>
                         ))}
                     </div>
 

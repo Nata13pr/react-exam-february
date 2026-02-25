@@ -1,7 +1,7 @@
 import {NavLink} from "react-router";
-import "./Menu.css";
+import "./MenuComponent.css";
 
-const Menu = () => {
+const MenuComponent = () => {
     return (
         <nav className="header-menu">
             <ul>
@@ -24,4 +24,4 @@ const Menu = () => {
     );
 };
 
-export default Menu;
+export default MenuComponent;

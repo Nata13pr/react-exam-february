@@ -1,14 +1,14 @@
 import {Outlet} from "react-router-dom";
-import Header from "../components/header-component/Header.tsx";
+import HeaderComponent from "../components/header-component/HeaderComponent.tsx";
 import './MainLayout.css'
-import GenresList from "../components/genres-list-component/GenresList.tsx";
+import GenresListComponent from "../components/genres-list-component/GenresListComponent.tsx";
 
 export const MainLayout = () => {
     return (
         <div className='layout-background'>
             <div className='content-island'>
-                <Header/>
-                <GenresList/>
+                <HeaderComponent/>
+                <GenresListComponent/>
                 <main className="main-content">
                     <Outlet/>
                 </main>

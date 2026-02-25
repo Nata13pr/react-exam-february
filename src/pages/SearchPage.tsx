@@ -1,40 +1,47 @@
-import {useAppSelector} from "../redux/hooks/useAppSelector.tsx";
-import PaginationPage from "./PaginationPage.tsx";
-import {useSearchParams} from "react-router";
-import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
 import {useEffect} from "react";
+import {useSearchParams} from "react-router";
+import {useAppSelector} from "../redux/hooks/useAppSelector.tsx";
+import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
 import {movieSliceActions} from "../redux/slices/movieSlice/movieSlice.ts";
-import MovieList from "../components/movie-list-component/MovieList.tsx";
+import MovieListComponent from "../components/movie-list-component/MovieListComponent.tsx";
+import PaginationPage from "./PaginationPage.tsx";
+import SearchErrorComponent from "../components/search-error-component/SearchErrorComponent.tsx";
 
 const SearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useAppDispatch();
-    const {movies, totalPages, searchQuery} = useAppSelector(({movieSlice}) => movieSlice);
+
+    const {movies, totalPages, searchQuery, isLoading} = useAppSelector(({movieSlice}) => movieSlice);
+
+    const query = searchParams.get("query") || "";
+    const page = searchParams.get("page") || "1";
 
     useEffect(() => {
-        const query = searchParams.get("query");
-        const page = searchParams.get("page") || '1';
-        if (!query) {
-            setSearchParams({
-                query: searchQuery,
-                page
-            });
+
+        if (!query && searchQuery) {
+            setSearchParams({query: searchQuery, page: "1"});
+            return;
         }
+
         if (query) {
             dispatch(movieSliceActions.loadMoviesBySearch({query, page}));
         }
-    }, [searchParams]);
+    }, [query,page, searchQuery,]);
+
+    const hasMovies = movies?.length > 0;
+    const isNotFound = !isLoading && movies?.length === 0 && query;
 
     return (
-        <div>
-            <MovieList movies={movies}/>
-            {totalPages > 1 && <PaginationPage totalPages={totalPages}/>}
-            {movies && movies.length === 0 && (
-                <div className="no-movies-found">
-                    🔍︎ Movies not found. Try another search.
-                </div>
+        <>
+            {hasMovies && (
+                <>
+                    <MovieListComponent movies={movies}/>
+                    {totalPages > 1 && <PaginationPage totalPages={totalPages}/>}
+                </>
             )}
-        </div>
-    )
-}
+            {isNotFound && <SearchErrorComponent query={query}/>}
+        </>
+    );
+};
+
 export default SearchPage;

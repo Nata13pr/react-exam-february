@@ -5,3 +5,4 @@ export const loadMovieByName = async (movieName: string,page:string='1'): Promis
     const {data} = await axiosInstance.get<IMovieResponse>('search/movie?query=' + movieName+ '&page=' + page);
     return data;
 }
+

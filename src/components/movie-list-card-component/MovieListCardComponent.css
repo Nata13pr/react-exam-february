@@ -44,7 +44,6 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* РЕЙТИНГ ПОВЕРХ КАРТИНКИ */
 .card-rating-overlay {
     position: absolute;
     bottom: 0;
@@ -58,12 +57,11 @@
 }
 
 .rating-val {
-    color: #fca311; /* Колір як на сторінці інфо */
+    color: #fca311;
     font-weight: bold;
     font-size: 0.9rem;
 }
 
-/* ТЕКСТ ПІД КАРТИНКОЮ */
 .card-content {
     padding: 15px;
     text-align: left;
@@ -75,7 +73,7 @@
     color: #fff;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Щоб назва не ламала картку */
+    text-overflow: ellipsis;
 }
 
 .card-year {

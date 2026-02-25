@@ -10,7 +10,6 @@ export const loadMovies = createAsyncThunk(
 
         try {
             const moviesResponse = await loadMoviesByPage(page, id)
-
             return thunkAPI.fulfillWithValue(moviesResponse);
         } catch (e) {
             console.log(e);
@@ -43,6 +42,7 @@ export const loadMoviesBySearch = createAsyncThunk(
         }
     }
 )
+
 
 export const loadMovieById = createAsyncThunk(
     'movieSlice/loadMovieById',
