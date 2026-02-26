@@ -1,5 +1,5 @@
 import type {IMovie} from "../../../models/movie/IMovie.ts";
-import type {IMovieDetails} from "../../../models/movie/MovieDetails.ts";
+import type {IMovieDetails} from "../../../models/movie/IMovieDetails.ts";
 import type {IGenre} from "../../../models/IGenre.ts";
 
 export type MovieSliceType = {

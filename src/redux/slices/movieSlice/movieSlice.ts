@@ -2,7 +2,7 @@ import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
 import type {MovieSliceType} from "./movieTypes.ts";
 import {loadAllGenres, loadMovieById, loadMovies, loadMoviesBySearch} from "./movieThunks.ts";
 import type {IMovieResponse} from "../../../models/movie/IMovieResponse.ts";
-import type {IMovieDetails} from "../../../models/movie/MovieDetails.ts";
+import type {IMovieDetails} from "../../../models/movie/IMovieDetails.ts";
 import type {IGenre} from "../../../models/IGenre.ts";
 
 const initialState: MovieSliceType = {

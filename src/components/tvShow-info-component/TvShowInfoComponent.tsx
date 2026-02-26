@@ -1,27 +1,27 @@
-import "./MovieInfoComponent.css";
+import "./TvShowInfoComponent.css";
 import {type FC, useEffect} from "react";
-import type {IMovieDetails} from "../../models/movie/IMovieDetails.ts";
 import Rating from "../stars-rating-component/StarsRatingComponent.tsx";
 import GenreBadgeComponent from "../genre-badge-component/GenreBadgeComponent.tsx";
+import type {ITVShowDetails} from "../../models/series/ITvShowDetails.ts";
 
-type MoviePropsType = {
-    movie: IMovieDetails | null;
+type TvShowPropsType = {
+    tvShow: ITVShowDetails | null;
 };
 
-const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
+const TvShowInfoComponent: FC<TvShowPropsType> = ({tvShow}) => {
     const baseUrl = "https://image.tmdb.org/t/p/original";
     const logoBaseUrl = "https://image.tmdb.org/t/p/w200";
 
-    if (!movie) {
-        return <div className="loading-spinner">Loading movie details...</div>;
+    if (!tvShow) {
+        return <div className="loading-spinner">Loading tv show details...</div>;
     }
 
-    const backdropSrc = movie.backdrop_path
-        ? `${baseUrl}${movie.backdrop_path}`
+    const backdropSrc = tvShow.backdrop_path
+        ? `${baseUrl}${tvShow.backdrop_path}`
         : "https://placehold.jp/333333/333333/1920x1080.png";
 
-    const posterSrc = movie.poster_path
-        ? `${baseUrl}${movie.poster_path}`
+    const posterSrc = tvShow.poster_path
+        ? `${baseUrl}${tvShow.poster_path}`
         : "https://placehold.jp/44/999999/ffffff/500x750.png?text=No+Poster";
     useEffect(() => {
         const elements = document.querySelectorAll('.layout-background, .content-island, main, .main-wrapper');
@@ -47,11 +47,11 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
                 <div className="movie-poster-section">
                     <img
                         src={posterSrc}
-                        alt={movie.title}
+                        alt={tvShow.name}
                         className="movie-info-poster"
                     />
-                    {movie.homepage && (
-                        <a href={movie.homepage} target="_blank" rel="noopener noreferrer" className="homepage-button">
+                    {tvShow.homepage && (
+                        <a href={tvShow.homepage} target="_blank" rel="noopener noreferrer" className="homepage-button">
                             Visit Official Site
                         </a>
                     )}
@@ -59,63 +59,66 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
 
                 <div className="movie-text-details">
                     <div className="movie-header">
-                        <h1 className="movie-title">{movie.title}</h1>
-                        {movie.tagline && <p className="movie-tagline">"{movie.tagline}"</p>}
+                        <h1 className="movie-title">{tvShow.name}</h1>
+                        {tvShow.tagline && <p className="movie-tagline">"{tvShow.tagline}"</p>}
                     </div>
 
                     <div className="movie-meta-row">
                         <span className="meta-item year">
-                            {movie.release_date ? movie.release_date.split('-')[0] : "N/A"}
+                           {tvShow.first_air_date ? tvShow.first_air_date.split('-')[0] : "N/A"}
                         </span>
-                        <span className="meta-item adult">{movie.adult ? "18+" : "12+"}</span>
-                        <span className="meta-item status">{movie.status}</span>
+                        <span className="meta-item adult">{tvShow.adult ? "18+" : "12+"}</span>
+                        <span className="meta-item status">{tvShow.status}</span>
                         <div className="rating-flex">
-                            <Rating rating={movie.vote_average / 2}/>
-                            <span className="rating-num">{movie.vote_average.toFixed(1)}</span>
-                            <span className="vote-count">({movie.vote_count} votes)</span>
+                            <Rating rating={tvShow.vote_average / 2}/>
+                            <span className="rating-num">{tvShow.vote_average.toFixed(1)}</span>
+                            <span className="vote-count">({tvShow.vote_count} votes)</span>
                         </div>
                     </div>
 
                     <div className="genres-list">
-                        {movie.genres.map(g => (
+                        {tvShow.genres.map(g => (
                             <GenreBadgeComponent g={g} key={g.id}/>
                         ))}
                     </div>
 
                     <div className="overview-block">
                         <h3>Overview</h3>
-                        <p>{movie.overview}</p>
+                        <p>{tvShow.overview}</p>
                     </div>
 
                     <div className="movie-info-grid">
                         <div className="grid-cell">
                             <span className="cell-label">Duration</span>
-                            <span className="cell-value">{movie.runtime} min</span>
+                            <span className="cell-value">{tvShow.episode_run_time && tvShow.episode_run_time.length > 0
+                                ? `${tvShow.episode_run_time[0]} min`
+                                : "N/A"}</span>
                         </div>
                         <div className="grid-cell">
-                            <span className="cell-label">Budget</span>
-                            <span
-                                className="cell-value">{movie.budget > 0 ? `$${movie.budget.toLocaleString()}` : "N/A"}</span>
+                            <span className="cell-label">Seasons / Episodes</span>
+                            <span className="cell-value">
+                                 {tvShow.number_of_seasons} S / {tvShow.number_of_episodes}
+                            </span>
                         </div>
                         <div className="grid-cell">
-                            <span className="cell-label">Revenue</span>
-                            <span
-                                className="cell-value">{movie.revenue > 0 ? `$${movie.revenue.toLocaleString()}` : "N/A"}</span>
+                            <span className="cell-label">Status</span>
+                            <span className="cell-value">{tvShow.status}</span>
                         </div>
                         <div className="grid-cell">
                             <span className="cell-label">Language</span>
-                            <span className="cell-value">{movie.original_language.toUpperCase()}</span>
+                            <span className="cell-value">{tvShow.original_language.toUpperCase()}</span>
                         </div>
                         <div className="grid-cell">
                             <span className="cell-label">Country</span>
-                            <span className="cell-value">{movie.production_countries[0]?.name || "N/A"}</span>
+                            <span className="cell-value">{tvShow.production_countries[0]?.name || "N/A"}</span>
                         </div>
                     </div>
 
                     <div className="production-section">
                         <h4>Production Companies</h4>
                         <div className="company-logos-row">
-                            {movie.production_companies.map(company => (
+                            {/* Змінюємо movie на tvShow */}
+                            {tvShow.production_companies?.map(company => (
                                 company.logo_path ? (
                                     <img
                                         key={company.id}
@@ -125,7 +128,9 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
                                         className="company-logo-img"
                                     />
                                 ) : (
-                                    <span key={company.id} className="company-text-only">{company.name}</span>
+                                    <span key={company.id} className="company-text-only">
+                    {company.name}
+                </span>
                                 )
                             ))}
                         </div>
@@ -136,4 +141,4 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
     );
 };
 
-export default MovieInfoComponent;
+export default TvShowInfoComponent;

@@ -12,6 +12,13 @@ const MenuComponent = () => {
                         Movies
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink
+                        to="/tvshows"
+                        className={({isActive}) => isActive ? "menu-link active" : "menu-link"}>
+                        Tv Shows
+                    </NavLink>
+                </li>
             </ul>
         </nav>
     );

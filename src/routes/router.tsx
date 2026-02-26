@@ -5,6 +5,8 @@ import MoviesPage from "../pages/MoviesPage.tsx";
 import SearchPage from "../pages/SearchPage.tsx";
 import InfoPage from "../pages/InfoPage.tsx";
 import ErrorPage from "../pages/ErrorPage.tsx";
+import TvShowPage from "../pages/TvShowPage.tsx";
+import InfoTvShowPage from "../pages/InfoTvShowPage.tsx";
 
 const routes: RouteObject[] = [
     {
@@ -18,6 +20,10 @@ const routes: RouteObject[] = [
                 element: <MoviesPage/>
             },
             {
+                path: 'tvshows',
+                element: <TvShowPage/>
+            },
+            {
                 path: 'error',
                 element: <ErrorPage/>
             },
@@ -28,6 +34,10 @@ const routes: RouteObject[] = [
             {
                 path: 'movie/info/:movieId',
                 element: <InfoPage/>
+            },
+            {
+                path: 'tvshow/info/:tvshowId',
+                element: <InfoTvShowPage/>
             },
         ]
     }

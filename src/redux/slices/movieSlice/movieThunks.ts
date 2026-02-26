@@ -2,7 +2,8 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {loadById, loadMoviesByPage} from "../../../services/movies.service.ts";
 import {loadMovieByName} from "../../../services/movies.search.service.ts";
 import type {IForm} from "../../../models/IForm.ts";
-import {loadGenres} from "../../../services/genre.service.ts";
+import {loadMovieGenres} from "../../../services/movie.genre.service.ts";
+
 
 export const loadMovies = createAsyncThunk(
     'movieSlice/loadMovies',
@@ -61,7 +62,7 @@ export const loadAllGenres = createAsyncThunk(
     async (_, thunkAPI) => {
 
         try {
-            const genres = await loadGenres()
+            const genres = await loadMovieGenres()
 
             return thunkAPI.fulfillWithValue(genres);
         } catch (e) {

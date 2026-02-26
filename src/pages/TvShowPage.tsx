@@ -2,13 +2,13 @@ import {useSearchParams} from "react-router";
 import {useAppSelector} from "../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
 import {useEffect, useMemo} from "react";
-import {movieSliceActions} from "../redux/slices/movieSlice/movieSlice.ts";
 import PaginationPage from "./PaginationPage.tsx";
-import MovieListComponent from "../components/movie-list-component/MovieListComponent.tsx";
+import TvShowListComponent from "../components/tvShow-list-component/TvShowListComponent.tsx";
+import {tvShowSliceActions} from "../redux/slices/tvShowSlice/tvShowSlice.ts";
 
-const MoviesPage = () => {
+const TvShowPage = () => {
     const [searchParams] = useSearchParams({page: '1'});
-    const {movies, totalPages, genres} = useAppSelector(({movieSlice}) => movieSlice)
+    const {tvShows, totalPages, genres} = useAppSelector(({tvShowSlice}) => tvShowSlice)
     const dispatch = useAppDispatch();
     const currentPage = searchParams.get("page") || '1';
     const genreId = searchParams.get("with_genres") || undefined;
@@ -21,21 +21,21 @@ const MoviesPage = () => {
     }, [genres]);
 
     useEffect(() => {
-        dispatch(movieSliceActions.loadMovies({page: currentPage, id: genreId}));
+        dispatch(tvShowSliceActions.loadTVShows({page: currentPage, id: genreId}));
 
         window.scrollTo({top: 0, behavior: 'smooth'});
 
         if (genres.length === 0) {
-            dispatch(movieSliceActions.loadAllGenres());
+            dispatch(tvShowSliceActions.loadAllTvGenres());
         }
 
     }, [currentPage, genreId, genres.length]);
 
     return (
         <>
-            <MovieListComponent movies={movies} genresMap={genresMap}/>
-            {movies.length > 0 && totalPages > 1 && <PaginationPage totalPages={totalPages}/>}
+            <TvShowListComponent tvShows={tvShows} genresMap={genresMap}/>
+            {tvShows.length > 0 && totalPages > 1 && <PaginationPage totalPages={totalPages}/>}
         </>
     )
 }
-export default MoviesPage;
+export default TvShowPage;

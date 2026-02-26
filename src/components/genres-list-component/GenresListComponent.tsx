@@ -2,13 +2,19 @@ import {useEffect, useRef} from "react";
 import "./GenresListComponent.css";
 import GenreComponent from "../genre-component/GenreComponent.tsx";
 import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
+import {useLocation} from "react-router-dom";
 
 const GenresListComponent = () => {
-    const {genres} = useAppSelector(({movieSlice}) => movieSlice);
     const scrollRef = useRef<HTMLUListElement>(null);
     const isScrolling = useRef(false);
     const hasCentered = useRef(false);
+    const { pathname } = useLocation();
 
+    const isTvPage = pathname.includes('/tv');
+
+    const genres = useAppSelector((state) =>
+        isTvPage ? state.tvShowSlice.genres : state.movieSlice.genres
+    );
     const infiniteGenres = [...genres, ...genres, ...genres];
 
     const resetPosition = () => {
