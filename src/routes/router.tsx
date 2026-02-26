@@ -18,10 +18,6 @@ const routes: RouteObject[] = [
                 element: <MoviesPage/>
             },
             {
-                path: 'series',
-                element: <div>Hello</div>
-            },
-            {
                 path: 'error',
                 element: <ErrorPage/>
             },

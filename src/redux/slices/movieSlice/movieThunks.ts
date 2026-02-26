@@ -12,8 +12,7 @@ export const loadMovies = createAsyncThunk(
             const moviesResponse = await loadMoviesByPage(page, id)
             return thunkAPI.fulfillWithValue(moviesResponse);
         } catch (e) {
-            console.log(e);
-            return thunkAPI.rejectWithValue('some error')
+            return thunkAPI.rejectWithValue(e)
         }
     }
 )
@@ -37,8 +36,7 @@ export const loadMoviesBySearch = createAsyncThunk(
 
             return thunkAPI.fulfillWithValue(movies);
         } catch (e) {
-            console.log(e);
-            return thunkAPI.rejectWithValue('some error')
+            return thunkAPI.rejectWithValue(e)
         }
     }
 )
@@ -50,11 +48,10 @@ export const loadMovieById = createAsyncThunk(
 
         try {
             const movieById = await loadById(id)
-            console.log(movieById, 'in thunk')
+
             return thunkAPI.fulfillWithValue(movieById);
         } catch (e) {
-            console.log(e);
-            return thunkAPI.rejectWithValue('some error')
+            return thunkAPI.rejectWithValue(e)
         }
     }
 )
@@ -68,8 +65,7 @@ export const loadAllGenres = createAsyncThunk(
 
             return thunkAPI.fulfillWithValue(genres);
         } catch (e) {
-            console.log(e);
-            return thunkAPI.rejectWithValue('some error')
+            return thunkAPI.rejectWithValue(e)
         }
     }
 )

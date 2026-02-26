@@ -14,7 +14,7 @@ type FormPropsType = {
 }
 
 const FormComponent: FC<FormPropsType> = ({onClose, onSearchError}) => {
-    const {handleSubmit, register, reset, watch,clearErrors, formState: {errors,isSubmitted}} = useForm<IForm>({
+    const {handleSubmit, register, reset, watch, clearErrors, formState: {errors, isSubmitted}} = useForm<IForm>({
         mode: 'onChange',
         resolver: joiResolver(MovieValidator),
         shouldFocusError: true,
@@ -52,12 +52,12 @@ const FormComponent: FC<FormPropsType> = ({onClose, onSearchError}) => {
                 onClose();
             } else {
                 navigate("/error", {
-                    state: { message: "Server is currently unavailable. Please try again later." }
+                    state: {message: "Server is currently unavailable. Please try again later."}
                 });
                 onClose();
             }
         } catch (error: any) {
-            navigate("/error", { state: { message: "Network connection error" } });
+            navigate("/error", {state: {message: "Network connection error"}});
             onClose();
         }
     };

@@ -1,5 +1,5 @@
 import "./MovieInfoComponent.css";
-import {type FC} from "react";
+import {type FC, useEffect} from "react";
 import type {IMovieDetails} from "../../models/movie/MovieDetails.ts";
 import Rating from "../stars-rating-component/StarsRatingComponent.tsx";
 import GenreBadgeComponent from "../genre-badge-component/GenreBadgeComponent.tsx";
@@ -8,36 +8,46 @@ type MoviePropsType = {
     movie: IMovieDetails | null;
 };
 
-const MovieInfo: FC<MoviePropsType> = ({movie}) => {
+const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
     const baseUrl = "https://image.tmdb.org/t/p/original";
     const logoBaseUrl = "https://image.tmdb.org/t/p/w200";
-    console.log(movie)
+
     if (!movie) {
         return <div className="loading-spinner">Loading movie details...</div>;
     }
 
     const backdropSrc = movie.backdrop_path
         ? `${baseUrl}${movie.backdrop_path}`
-        : "https://placehold.jp/333333/333333/1920x1080.png"
+        : "https://placehold.jp/333333/333333/1920x1080.png";
 
     const posterSrc = movie.poster_path
         ? `${baseUrl}${movie.poster_path}`
         : "https://placehold.jp/44/999999/ffffff/500x750.png?text=No+Poster";
+    useEffect(() => {
+        // Шукаємо елементи, які зазвичай створюють "сіру стіну"
+        const elements = document.querySelectorAll('.layout-background, .content-island, main, .main-wrapper');
 
+        elements.forEach(el => {
+            (el as HTMLElement).style.background = 'transparent';
+        });
+
+        return () => {
+            elements.forEach(el => {
+                (el as HTMLElement).style.background = '';
+            });
+        };
+    }, []);
     return (
         <div className="movie-details-container">
-
             <div
                 className="movie-backdrop"
                 style={{backgroundImage: `url(${backdropSrc})`}}
-            >
-                <div className="backdrop-overlay"></div>
-            </div>
-
+            />
+            <div className="backdrop-overlay"/>
             <div className="movie-content">
                 <div className="movie-poster-section">
                     <img
-                        src={`${posterSrc}`}
+                        src={posterSrc}
                         alt={movie.title}
                         className="movie-info-poster"
                     />
@@ -55,7 +65,9 @@ const MovieInfo: FC<MoviePropsType> = ({movie}) => {
                     </div>
 
                     <div className="movie-meta-row">
-                        <span className="meta-item year">{movie.release_date.split('-')[0]}</span>
+                        <span className="meta-item year">
+                            {movie.release_date ? movie.release_date.split('-')[0] : "N/A"}
+                        </span>
                         <span className="meta-item adult">{movie.adult ? "18+" : "12+"}</span>
                         <span className="meta-item status">{movie.status}</span>
                         <div className="rating-flex">
@@ -123,4 +135,4 @@ const MovieInfo: FC<MoviePropsType> = ({movie}) => {
     );
 };
 
-export default MovieInfo;
+export default MovieInfoComponent;

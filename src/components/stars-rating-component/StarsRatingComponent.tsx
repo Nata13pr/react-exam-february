@@ -15,8 +15,7 @@ const StarsRatingComponent: FC<RatingProps> = ({rating}) => {
                         <span className="star-background">★</span>
                         <span
                             className="star-foreground"
-                            style={{width: `${fillPercentage}%`}}
-                        >
+                            style={{width: `${fillPercentage}%`}}>
                             ★
                         </span>
                     </div>

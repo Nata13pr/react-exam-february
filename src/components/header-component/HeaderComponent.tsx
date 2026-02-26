@@ -10,16 +10,6 @@ const HeaderComponent = () => {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const pillRef = useRef<HTMLDivElement>(null);
 
-    // const triggerShake = () => {
-    //     if (pillRef.current) {
-    //         const pill = pillRef.current;
-    //         pill.classList.remove("shake-animation");
-    //
-    //         void pill.offsetWidth;
-    //
-    //         pill.classList.add("shake-animation");
-    //     }
-    // };
     const triggerShake = useCallback(() => {
         if (pillRef.current) {
             const pill = pillRef.current;

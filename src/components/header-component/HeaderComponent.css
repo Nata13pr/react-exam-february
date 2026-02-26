@@ -37,7 +37,7 @@
 }
 
 .nav-search-pill.active {
-    min-width: 280px; 
+    min-width: 280px;
     width: 100%;
     max-width: 450px;
 }
@@ -50,14 +50,23 @@
     font-size: 1.1rem;
     margin-left: 10px;
 }
+
 .nav-search-pill.shake-animation {
-    animation: pill-shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    animation: pill-shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
     border-color: rgba(255, 191, 36, 0.5);
 }
 
 @keyframes pill-shake {
-    10%, 90% { transform: translate3d(-2px, 0, 0); }
-    20%, 80% { transform: translate3d(4px, 0, 0); }
-    30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
-    40%, 60% { transform: translate3d(6px, 0, 0); }
+    10%, 90% {
+        transform: translate3d(-2px, 0, 0);
+    }
+    20%, 80% {
+        transform: translate3d(4px, 0, 0);
+    }
+    30%, 50%, 70% {
+        transform: translate3d(-6px, 0, 0);
+    }
+    40%, 60% {
+        transform: translate3d(6px, 0, 0);
+    }
 }

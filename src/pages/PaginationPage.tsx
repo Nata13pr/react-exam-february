@@ -13,7 +13,6 @@ const PaginationPage: FC<PaginationPropsType> = ({totalPages}) => {
 
     const changePage = (newPage: number) => {
         setSearchParams(prev => {
-            // Копіюємо всі попередні параметри (включаючи with_genres)
             const params = new URLSearchParams(prev);
             params.set("page", newPage.toString());
             return params;
@@ -22,7 +21,7 @@ const PaginationPage: FC<PaginationPropsType> = ({totalPages}) => {
 
     const handleOnClickNext = () => {
         if (totalPages > currentPage) {
-            changePage(currentPage + 1);;
+            changePage(currentPage + 1);
         }
     }
     const handleOnClickPrev = () => {

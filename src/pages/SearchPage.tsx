@@ -26,7 +26,7 @@ const SearchPage = () => {
         if (query) {
             dispatch(movieSliceActions.loadMoviesBySearch({query, page}));
         }
-    }, [query,page, searchQuery,]);
+    }, [query, page, searchQuery,]);
 
     const hasMovies = movies?.length > 0;
     const isNotFound = !isLoading && movies?.length === 0 && query;

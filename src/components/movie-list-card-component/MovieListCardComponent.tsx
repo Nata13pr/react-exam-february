@@ -1,6 +1,6 @@
 import "./MovieListCardComponent.css"
 import type {IMovie} from "../../models/movie/IMovie.ts";
-import { type FC, useMemo } from "react";
+import {type FC, useMemo} from "react";
 import {useNavigate} from "react-router";
 import StarsRatingComponent from "../stars-rating-component/StarsRatingComponent.tsx";
 import {useAppSelector} from "../../redux/hooks/useAppSelector.tsx";
@@ -25,7 +25,7 @@ export const MovieListCardComponent: FC<MovieListCardProps> = ({movie}) => {
             return acc;
         }, {} as Record<number, string>);
     }, [genres]);
-    console.log(genresMap,'map')
+
     return (
 
         <li className="movie-card" onClick={handleOnClick}>
@@ -39,7 +39,7 @@ export const MovieListCardComponent: FC<MovieListCardProps> = ({movie}) => {
                 </div>
 
                 <div className="card-rating-overlay">
-                    <StarsRatingComponent rating={movie.vote_average / 2} />
+                    <StarsRatingComponent rating={movie.vote_average / 2}/>
                     <span className="rating-val">{movie.vote_average.toFixed(1)}</span>
                 </div>
             </div>
