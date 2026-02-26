@@ -24,11 +24,10 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
         ? `${baseUrl}${movie.poster_path}`
         : "https://placehold.jp/44/999999/ffffff/500x750.png?text=No+Poster";
     useEffect(() => {
-        // Шукаємо елементи, які зазвичай створюють "сіру стіну"
         const elements = document.querySelectorAll('.layout-background, .content-island, main, .main-wrapper');
 
         elements.forEach(el => {
-            (el as HTMLElement).style.background = 'transparent';
+            if (el) (el as HTMLElement).style.background = 'transparent';
         });
 
         return () => {
@@ -52,7 +51,7 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
                         className="movie-info-poster"
                     />
                     {movie.homepage && (
-                        <a href={movie.homepage} target="_blank" rel="noreferrer" className="homepage-button">
+                        <a href={movie.homepage} target="_blank" rel="noopener noreferrer" className="homepage-button">
                             Visit Official Site
                         </a>
                     )}
@@ -95,11 +94,13 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
                         </div>
                         <div className="grid-cell">
                             <span className="cell-label">Budget</span>
-                            <span className="cell-value">${movie.budget.toLocaleString()}</span>
+                            <span
+                                className="cell-value">{movie.budget > 0 ? `$${movie.budget.toLocaleString()}` : "N/A"}</span>
                         </div>
                         <div className="grid-cell">
                             <span className="cell-label">Revenue</span>
-                            <span className="cell-value">${movie.revenue.toLocaleString()}</span>
+                            <span
+                                className="cell-value">{movie.revenue > 0 ? `$${movie.revenue.toLocaleString()}` : "N/A"}</span>
                         </div>
                         <div className="grid-cell">
                             <span className="cell-label">Language</span>

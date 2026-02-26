@@ -38,14 +38,15 @@
     width: 100%;
     max-width: 1200px;
     gap: 40px;
-    background: rgba(30, 41, 59, 0.7); /* Напівпрозорий темно-синій */
-    backdrop-filter: blur(15px); /* Ефект матового скла */
+    background: rgba(30, 41, 59, 0.7);
+    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     padding: 40px;
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     z-index: 1;
+    animation: slideUpFade 0.6s ease-out;
 }
 
 .movie-poster-section {
@@ -235,20 +236,13 @@
     font-weight: 700;
 }
 
-@media (max-width: 900px) {
-    .movie-content {
-        flex-direction: column;
-        padding: 25px;
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
-
-    .movie-poster-section {
-        flex: none;
-        width: 250px;
-        margin: 0 auto;
-    }
-
-    .movie-title {
-        font-size: 2.2rem;
-        text-align: center;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
