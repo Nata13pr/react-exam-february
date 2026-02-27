@@ -117,7 +117,6 @@ const TvShowInfoComponent: FC<TvShowPropsType> = ({tvShow}) => {
                     <div className="production-section">
                         <h4>Production Companies</h4>
                         <div className="company-logos-row">
-                            {/* Змінюємо movie на tvShow */}
                             {tvShow.production_companies?.map(company => (
                                 company.logo_path ? (
                                     <img

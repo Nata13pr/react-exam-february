@@ -9,7 +9,6 @@ const initialState: TvShowSliceType = {
     tvShows: [],
     totalPages: 1,
     page: 1,
-    // searchQuery: '',
     tvShow: null,
     genres: [],
     isLoading: false
@@ -19,11 +18,6 @@ export const tvShowSlice = createSlice({
     name: 'tvShowSlice',
     initialState: initialState,
     reducers: {},
-    // {
-    //     setSearchQuery: (state, action: PayloadAction<string>) => {
-    //         state.searchQuery = action.payload;
-    //     },
-    // },
     extraReducers: builder =>
         builder
             .addCase(loadTVShows.fulfilled, (state, action: PayloadAction<ITVShowResponse>) => {
@@ -32,11 +26,7 @@ export const tvShowSlice = createSlice({
                 state.page = action.payload.page;
                 state.isLoading = false;
             })
-            // .addCase(loadMoviesBySearch.fulfilled, (state, action: PayloadAction<IMovieResponse>) => {
-            //     state.movies = action.payload.results;
-            //     state.totalPages = action.payload.total_pages;
-            //     state.isLoading = false;
-            // })
+
             .addCase(loadTvShowById.fulfilled, (state, action: PayloadAction<ITVShowDetails>) => {
                 state.tvShow = action.payload;
                 state.isLoading = false;

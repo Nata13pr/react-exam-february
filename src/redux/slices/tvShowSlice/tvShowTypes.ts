@@ -7,7 +7,6 @@ export type TvShowSliceType = {
     tvShows: ITVShow[];
     totalPages: number;
     page: number;
-    // searchQuery: string;
     tvShow:  ITVShowDetails | null;
     genres: IGenre[];
     isLoading: boolean;
