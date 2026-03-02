@@ -246,3 +246,13 @@
         transform: translateY(0);
     }
 }
+
+body.info-page-active .layout-background,
+body.info-page-active .content-island,
+body.info-page-active main,
+body.info-page-active .main-wrapper {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}

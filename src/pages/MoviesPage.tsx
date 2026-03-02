@@ -29,7 +29,7 @@ const MoviesPage = () => {
             dispatch(movieSliceActions.loadAllGenres());
         }
 
-    }, [currentPage, genreId, genres.length]);
+    }, [currentPage, genreId]);
 
     return (
         <>

@@ -23,17 +23,12 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
     const posterSrc = movie.poster_path
         ? `${baseUrl}${movie.poster_path}`
         : "https://placehold.jp/44/999999/ffffff/500x750.png?text=No+Poster";
-    useEffect(() => {
-        const elements = document.querySelectorAll('.layout-background, .content-island, main, .main-wrapper');
 
-        elements.forEach(el => {
-            if (el) (el as HTMLElement).style.background = 'transparent';
-        });
+    useEffect(() => {
+        document.body.classList.add('info-page-active');
 
         return () => {
-            elements.forEach(el => {
-                (el as HTMLElement).style.background = '';
-            });
+            document.body.classList.remove('info-page-active');
         };
     }, []);
     return (

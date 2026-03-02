@@ -12,7 +12,6 @@ type MovieListCardProps = {
 }
 
 export const MovieListCardComponent: FC<MovieListCardProps> = ({movie,genresMap}) => {
-
     const navigate = useNavigate();
 
     const handleOnClick = () => {

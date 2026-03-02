@@ -7,15 +7,24 @@ import MovieInfoComponent from "../components/movie-info-component/MovieInfoComp
 
 const InfoPage = () => {
     const {movieId} = useParams<{ movieId: string }>();
-    const {movie} = useAppSelector(({movieSlice}) => movieSlice)
+    const {movie, genres} = useAppSelector(({movieSlice}) => movieSlice)
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        if (movieId) {
-            dispatch(movieSliceActions.loadMovieById(movieId))
+        if (genres.length === 0) {
+            dispatch(movieSliceActions.loadAllGenres());
         }
+    }, []);
 
+    useEffect(() => {
+        if (movieId) {
+            dispatch(movieSliceActions.loadMovieById(movieId));
+        }
     }, [movieId]);
+
+    if (!movie || movie.id.toString() !== movieId) {
+        return <div className="loading-spinner">Loading movie details...</div>;
+    }
     return (
         <>
             <MovieInfoComponent movie={movie}/>
