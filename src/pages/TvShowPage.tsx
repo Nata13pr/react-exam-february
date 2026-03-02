@@ -13,13 +13,6 @@ const TvShowPage = () => {
     const currentPage = searchParams.get("page") || '1';
     const genreId = searchParams.get("with_genres") || undefined;
 
-    const genresMap = useMemo(() => {
-        return genres.reduce((acc, genre) => {
-            acc[genre.id] = genre.name;
-            return acc;
-        }, {} as Record<number, string>);
-    }, [genres]);
-
     useEffect(() => {
         dispatch(tvShowSliceActions.loadTVShows({page: currentPage, id: genreId}));
 
@@ -30,6 +23,13 @@ const TvShowPage = () => {
         }
 
     }, [currentPage, genreId, genres.length]);
+
+    const genresMap = useMemo(() => {
+        return genres.reduce((acc, genre) => {
+            acc[genre.id] = genre.name;
+            return acc;
+        }, {} as Record<number, string>);
+    }, [genres]);
 
     return (
         <>

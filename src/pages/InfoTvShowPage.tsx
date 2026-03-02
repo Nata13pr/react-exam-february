@@ -15,6 +15,15 @@ const InfoPage = () => {
             dispatch(tvShowSliceActions.loadTvShowById(tvshowId))
         }
     }, [tvshowId]);
+    useEffect(() => {
+        if (tvshowId) {
+            dispatch(tvShowSliceActions.loadTvShowById(tvshowId));
+        }
+    }, [tvshowId]);
+
+    if (!tvShow || tvShow.id.toString() !== tvshowId) {
+        return <div className="loading-spinner">Loading movie details...</div>;
+    }
     return (
         <>
             <TvShowInfoComponent tvShow={tvShow}/>

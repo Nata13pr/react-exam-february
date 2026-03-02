@@ -13,13 +13,6 @@ const MoviesPage = () => {
     const currentPage = searchParams.get("page") || '1';
     const genreId = searchParams.get("with_genres") || undefined;
 
-    const genresMap = useMemo(() => {
-        return genres.reduce((acc, genre) => {
-            acc[genre.id] = genre.name;
-            return acc;
-        }, {} as Record<number, string>);
-    }, [genres]);
-
     useEffect(() => {
         dispatch(movieSliceActions.loadMovies({page: currentPage, id: genreId}));
 
@@ -30,6 +23,13 @@ const MoviesPage = () => {
         }
 
     }, [currentPage, genreId]);
+
+    const genresMap = useMemo(() => {
+        return genres.reduce((acc, genre) => {
+            acc[genre.id] = genre.name;
+            return acc;
+        }, {} as Record<number, string>);
+    }, [genres]);
 
     return (
         <>
