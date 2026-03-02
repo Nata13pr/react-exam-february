@@ -31,6 +31,7 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
             document.body.classList.remove('info-page-active');
         };
     }, []);
+
     return (
         <div className="movie-details-container">
             <div
