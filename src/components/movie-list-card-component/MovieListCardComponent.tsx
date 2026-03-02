@@ -30,6 +30,7 @@ export const MovieListCardComponent: FC<MovieListCardProps> = ({movie,genresMap}
                     ))}
                 </div>
 
+
                 <div className="card-rating-overlay">
                     <StarsRatingComponent rating={movie.vote_average / 2}/>
                     <span className="rating-val">{movie.vote_average.toFixed(1)}</span>

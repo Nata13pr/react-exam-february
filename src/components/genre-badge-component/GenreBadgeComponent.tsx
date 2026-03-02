@@ -8,6 +8,7 @@ type GenreBadgePropsType = {
 }
 
 const GenreBadgeComponent: FC<GenreBadgePropsType> = ({g}) => {
+
     const bgColor = useMemo(() => {
         const id = typeof g === 'object'
             ? g.id

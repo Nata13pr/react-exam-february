@@ -74,7 +74,6 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
                     </div>
 
                     <div className="genres-list">
-                        {/* Додаємо опціональний ланцюжок для безпеки */}
                         {movie.genres?.map(g => (
                             <GenreBadgeComponent g={g} key={g.id}/>
                         ))}

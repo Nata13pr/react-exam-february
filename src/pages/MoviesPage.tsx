@@ -1,10 +1,11 @@
 import {useSearchParams} from "react-router";
 import {useAppSelector} from "../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
-import {useEffect, useMemo} from "react";
+import {useEffect} from "react";
 import {movieSliceActions} from "../redux/slices/movieSlice/movieSlice.ts";
 import PaginationPage from "./PaginationPage.tsx";
 import MovieListComponent from "../components/movie-list-component/MovieListComponent.tsx";
+import {useGenresMap} from "../redux/hooks/useGenresMap.tsx";
 
 const MoviesPage = () => {
     const [searchParams] = useSearchParams({page: '1'});
@@ -24,12 +25,7 @@ const MoviesPage = () => {
 
     }, [currentPage, genreId]);
 
-    const genresMap = useMemo(() => {
-        return genres.reduce((acc, genre) => {
-            acc[genre.id] = genre.name;
-            return acc;
-        }, {} as Record<number, string>);
-    }, [genres]);
+    const genresMap = useGenresMap();
 
     return (
         <>
