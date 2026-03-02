@@ -9,20 +9,6 @@ type MoviePropsType = {
 };
 
 const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
-    const baseUrl = "https://image.tmdb.org/t/p/original";
-    const logoBaseUrl = "https://image.tmdb.org/t/p/w200";
-
-    if (!movie) {
-        return <div className="loading-spinner">Loading movie details...</div>;
-    }
-
-    const backdropSrc = movie.backdrop_path
-        ? `${baseUrl}${movie.backdrop_path}`
-        : "https://placehold.jp/333333/333333/1920x1080.png";
-
-    const posterSrc = movie.poster_path
-        ? `${baseUrl}${movie.poster_path}`
-        : "https://placehold.jp/44/999999/ffffff/500x750.png?text=No+Poster";
 
     useEffect(() => {
         document.body.classList.add('info-page-active');
@@ -31,6 +17,21 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
             document.body.classList.remove('info-page-active');
         };
     }, []);
+
+    if (!movie) {
+        return <div className="loading-spinner">Loading movie details...</div>;
+    }
+
+    const baseUrl = "https://image.tmdb.org/t/p/original";
+    const logoBaseUrl = "https://image.tmdb.org/t/p/w200";
+
+    const backdropSrc = movie.backdrop_path
+        ? `${baseUrl}${movie.backdrop_path}`
+        : "https://placehold.jp/333333/333333/1920x1080.png";
+
+    const posterSrc = movie.poster_path
+        ? `${baseUrl}${movie.poster_path}`
+        : "https://placehold.jp/44/999999/ffffff/500x750.png?text=No+Poster";
 
     return (
         <div className="movie-details-container">
@@ -73,7 +74,8 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
                     </div>
 
                     <div className="genres-list">
-                        {movie.genres.map(g => (
+                        {/* Додаємо опціональний ланцюжок для безпеки */}
+                        {movie.genres?.map(g => (
                             <GenreBadgeComponent g={g} key={g.id}/>
                         ))}
                     </div>
@@ -90,28 +92,32 @@ const MovieInfoComponent: FC<MoviePropsType> = ({movie}) => {
                         </div>
                         <div className="grid-cell">
                             <span className="cell-label">Budget</span>
-                            <span
-                                className="cell-value">{movie.budget > 0 ? `$${movie.budget.toLocaleString()}` : "N/A"}</span>
+                            <span className="cell-value">
+                                {movie.budget > 0 ? `$${movie.budget.toLocaleString()}` : "N/A"}
+                            </span>
                         </div>
                         <div className="grid-cell">
                             <span className="cell-label">Revenue</span>
-                            <span
-                                className="cell-value">{movie.revenue > 0 ? `$${movie.revenue.toLocaleString()}` : "N/A"}</span>
+                            <span className="cell-value">
+                                {movie.revenue > 0 ? `$${movie.revenue.toLocaleString()}` : "N/A"}
+                            </span>
                         </div>
                         <div className="grid-cell">
                             <span className="cell-label">Language</span>
-                            <span className="cell-value">{movie.original_language.toUpperCase()}</span>
+                            <span className="cell-value">{movie.original_language?.toUpperCase()}</span>
                         </div>
                         <div className="grid-cell">
                             <span className="cell-label">Country</span>
-                            <span className="cell-value">{movie.production_countries[0]?.name || "N/A"}</span>
+                            <span className="cell-value">
+                                {movie.production_countries?.[0]?.name || "N/A"}
+                            </span>
                         </div>
                     </div>
 
                     <div className="production-section">
                         <h4>Production Companies</h4>
                         <div className="company-logos-row">
-                            {movie.production_companies.map(company => (
+                            {movie.production_companies?.map(company => (
                                 company.logo_path ? (
                                     <img
                                         key={company.id}
