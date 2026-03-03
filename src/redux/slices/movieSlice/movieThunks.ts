@@ -8,9 +8,11 @@ import {loadMovieGenres} from "../../../services/movie.genre.service.ts";
 export const loadMovies = createAsyncThunk(
     'movieSlice/loadMovies',
     async ({page, id}: { page: string, id?: string }, thunkAPI) => {
-
+        const parsedPage = parseInt(page);
+// Якщо parseInt не зміг зробити число, або воно < 1 — беремо '1'
+        const safePage = (!isNaN(parsedPage) && parsedPage > 0) ? parsedPage.toString() : '1';
         try {
-            const moviesResponse = await loadMoviesByPage(page, id)
+            const moviesResponse = await loadMoviesByPage(safePage, id)
             return thunkAPI.fulfillWithValue(moviesResponse);
         } catch (e) {
             return thunkAPI.rejectWithValue(e)

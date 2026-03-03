@@ -1,4 +1,4 @@
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {useAppSelector} from "../redux/hooks/useAppSelector.tsx";
 import {useEffect} from "react";
 import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
@@ -9,17 +9,23 @@ const InfoPage = () => {
     const {tvshowId} = useParams<{ tvshowId: string }>();
     const {tvShow} = useAppSelector(({tvShowSlice}) => tvShowSlice)
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
+        const idAsNumber = Number(tvshowId);
+        if (tvshowId && (isNaN(idAsNumber) || idAsNumber <= 0)) {
+            navigate('/tvshows', {replace: true});
+            return;
+        }
+
         if (tvshowId) {
             dispatch(tvShowSliceActions.loadTvShowById(tvshowId))
         }
+        return () => {
+            dispatch(tvShowSliceActions.clearTvShow());
+        };
     }, [tvshowId]);
-    useEffect(() => {
-        if (tvshowId) {
-            dispatch(tvShowSliceActions.loadTvShowById(tvshowId));
-        }
-    }, [tvshowId]);
+
 
     if (!tvShow || tvShow.id.toString() !== tvshowId) {
         return <div className="loading-spinner">Loading movie details...</div>;

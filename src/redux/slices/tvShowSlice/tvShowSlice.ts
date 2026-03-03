@@ -1,4 +1,4 @@
-import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, type PayloadAction, type UnknownAction} from "@reduxjs/toolkit";
 import type {TvShowSliceType} from "./tvShowTypes.ts";
 import {loadAllTvGenres, loadTvShowById, loadTVShows} from "./tvShowThunks.ts";
 import type {ITVShowResponse} from "../../../models/series/ITVShowResponse.ts";
@@ -17,7 +17,11 @@ const initialState: TvShowSliceType = {
 export const tvShowSlice = createSlice({
     name: 'tvShowSlice',
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        clearTvShow: (state) => {
+            state.tvShow = null;
+        }
+    },
     extraReducers: builder =>
         builder
             .addCase(loadTVShows.fulfilled, (state, action: PayloadAction<ITVShowResponse>) => {
@@ -44,11 +48,18 @@ export const tvShowSlice = createSlice({
                 }
             )
             .addMatcher(
-                (action): action is any => action.type.endsWith('/rejected'),
-                (state, action) => {
+                (action) => action.type.endsWith('/rejected'),
+                (state, action: UnknownAction) => {
                     state.isLoading = false;
 
-                    const errorData = (action as PayloadAction<any>).payload || action.error;
+                    if (action.type.includes('loadTVShows')) {
+                        state.tvShows = [];
+                    }
+                    if (action.type.includes('loadTvShowById')) {
+                        state.tvShow = null;
+                    }
+
+                    const errorData = action.payload || action.error;
                     console.error(`Error in action ${action.type}:`, errorData);
                 }
             )

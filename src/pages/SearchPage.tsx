@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import {useSearchParams} from "react-router";
+import {useNavigate, useSearchParams} from "react-router";
 import {useAppSelector} from "../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
 import {movieSliceActions} from "../redux/slices/movieSlice/movieSlice.ts";
@@ -11,7 +11,7 @@ import {useGenresMap} from "../redux/hooks/useGenresMap.tsx";
 const SearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useAppDispatch();
-
+    const navigate = useNavigate();
     const {movies, totalPages, searchQuery, isLoading, genres} = useAppSelector(({movieSlice}) => movieSlice);
 
     const query = searchParams.get("query") || "";
@@ -23,10 +23,14 @@ const SearchPage = () => {
         }
     }, []);
 
-    const genresMap = useGenresMap();
-
     useEffect(() => {
+        const isPageInvalid = isNaN(Number(page)) || Number(page) < 1;
 
+        if (isPageInvalid ) {
+
+            navigate('/movies?page=1', {replace: true});
+            return;
+        }
         if (!query && searchQuery) {
             setSearchParams({query: searchQuery, page: "1"});
             return;
@@ -37,6 +41,7 @@ const SearchPage = () => {
         }
     }, [query, page, searchQuery]);
 
+    const genresMap = useGenresMap();
     const hasMovies = movies?.length > 0;
     const isNotFound = !isLoading && movies?.length === 0 && query;
 

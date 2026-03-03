@@ -12,17 +12,6 @@ const TvShowInfoComponent: FC<TvShowPropsType> = ({tvShow}) => {
     const baseUrl = "https://image.tmdb.org/t/p/original";
     const logoBaseUrl = "https://image.tmdb.org/t/p/w200";
 
-    if (!tvShow) {
-        return <div className="loading-spinner">Loading tv show details...</div>;
-    }
-
-    const backdropSrc = tvShow.backdrop_path
-        ? `${baseUrl}${tvShow.backdrop_path}`
-        : "https://placehold.jp/333333/333333/1920x1080.png";
-
-    const posterSrc = tvShow.poster_path
-        ? `${baseUrl}${tvShow.poster_path}`
-        : "https://placehold.jp/44/999999/ffffff/500x750.png?text=No+Poster";
     useEffect(() => {
         const elements = document.querySelectorAll('.layout-background, .content-island, main, .main-wrapper');
 
@@ -36,6 +25,20 @@ const TvShowInfoComponent: FC<TvShowPropsType> = ({tvShow}) => {
             });
         };
     }, []);
+
+    if (!tvShow) {
+        return <div className="loading-spinner">Loading tv show details...</div>;
+    }
+
+    const backdropSrc = tvShow.backdrop_path
+        ? `${baseUrl}${tvShow.backdrop_path}`
+        : "https://placehold.jp/333333/333333/1920x1080.png";
+
+    const posterSrc = tvShow.poster_path
+        ? `${baseUrl}${tvShow.poster_path}`
+        : "https://placehold.jp/44/999999/ffffff/500x750.png?text=No+Poster";
+
+
     return (
         <div className="movie-details-container">
             <div

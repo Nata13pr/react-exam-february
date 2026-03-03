@@ -1,4 +1,4 @@
-import {createSlice, type PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, type PayloadAction, type UnknownAction} from "@reduxjs/toolkit";
 import type {MovieSliceType} from "./movieTypes.ts";
 import {loadAllGenres, loadMovieById, loadMovies, loadMoviesBySearch} from "./movieThunks.ts";
 import type {IMovieResponse} from "../../../models/movie/IMovieResponse.ts";
@@ -17,14 +17,19 @@ const initialState: MovieSliceType = {
 
 export const movieSlice = createSlice({
     name: 'movieSlice',
-    initialState: initialState,
+    initialState,
     reducers: {
         setSearchQuery: (state, action: PayloadAction<string>) => {
             state.searchQuery = action.payload;
         },
+
+        clearMovie: (state) => {
+            state.movie = null;
+        }
     },
     extraReducers: builder =>
         builder
+
             .addCase(loadMovies.fulfilled, (state, action: PayloadAction<IMovieResponse>) => {
                 state.movies = action.payload.results;
                 state.totalPages = action.payload.total_pages;
@@ -44,8 +49,6 @@ export const movieSlice = createSlice({
                 state.genres = action.payload;
                 state.isLoading = false;
             })
-
-
             .addMatcher(
                 (action) => action.type.endsWith('/pending'),
                 (state) => {
@@ -53,11 +56,17 @@ export const movieSlice = createSlice({
                 }
             )
             .addMatcher(
-                (action): action is any => action.type.endsWith('/rejected'),
-                (state, action) => {
+                (action) => action.type.endsWith('/rejected'),
+                (state, action: UnknownAction) => {
                     state.isLoading = false;
 
-                    const errorData = (action as PayloadAction<any>).payload || action.error;
+                    if (action.type.includes('loadMovies')) {
+                        state.movies = [];
+                    }
+                    if (action.type.includes('loadMovieById')) {
+                        state.movie = null;
+                    }
+                    const errorData = action.payload || action.error;
                     console.error(`Error in action ${action.type}:`, errorData);
                 }
             )

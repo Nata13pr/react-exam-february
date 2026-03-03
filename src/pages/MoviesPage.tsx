@@ -1,4 +1,4 @@
-import {useSearchParams} from "react-router";
+import {useNavigate, useSearchParams} from "react-router";
 import {useAppSelector} from "../redux/hooks/useAppSelector.tsx";
 import {useAppDispatch} from "../redux/hooks/useAppDispatch.tsx";
 import {useEffect} from "react";
@@ -11,11 +11,23 @@ const MoviesPage = () => {
     const [searchParams] = useSearchParams({page: '1'});
     const {movies, totalPages, genres} = useAppSelector(({movieSlice}) => movieSlice)
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const currentPage = searchParams.get("page") || '1';
     const genreId = searchParams.get("with_genres") || undefined;
 
     useEffect(() => {
-        dispatch(movieSliceActions.loadMovies({page: currentPage, id: genreId}));
+        const isPageInvalid = isNaN(Number(currentPage)) || Number(currentPage) < 1;
+        const isGenreInvalid = genreId && (isNaN(Number(genreId)) || Number(genreId) <= 0);
+        if (isPageInvalid || isGenreInvalid) {
+
+            navigate('/movies?page=1', {replace: true});
+            return;
+        }
+
+        dispatch(movieSliceActions.loadMovies({
+            page: currentPage,
+            id: genreId
+        }));
 
         window.scrollTo({top: 0, behavior: 'smooth'});
 
@@ -23,7 +35,7 @@ const MoviesPage = () => {
             dispatch(movieSliceActions.loadAllGenres());
         }
 
-    }, [currentPage, genreId]);
+    }, [currentPage, genreId, navigate]);
 
     const genresMap = useGenresMap();
 
